@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 class MoneyTest extends TestCase
 {
 
-    public function testCurrencyCalculations()
+    public function testCalculations()
     {
         $mon1 = new Money(100.73);
         $mon1->add(new Money(99.27));
@@ -39,21 +39,21 @@ class MoneyTest extends TestCase
         $this->assertEquals(4.6134, $mon4->getAmount(4));
     }
 
-    public function testCurrencyOneEuro()
+    public function testOneEuro()
     {
         $cur = new Money(1);
 
         $this->assertEquals(1, $cur->getAmount());
     }
 
-    public function testCurrencyOneEuroThirtyCent()
+    public function testOneEuroThirtyCent()
     {
         $cur = new Money(1.30);
 
         $this->assertEquals(1.30, $cur->getAmount());
     }
 
-    public function testCurrencyAddition()
+    public function testAddition()
     {
         $total = new Money();
         $total->add(new Money(14670.40));
@@ -63,7 +63,7 @@ class MoneyTest extends TestCase
         $this->assertEquals(17506.77, $total->getAmount());
     }
 
-    public function testCurrencyAdditionFormated()
+    public function testAdditionFormated()
     {
         $total = new Money();
         $total->add(new Money(14670.40));
@@ -74,7 +74,15 @@ class MoneyTest extends TestCase
             $total->getFormatedAmount(2));
     }
 
-    public function testCurrencyMultiply()
+    public function testSubtract()
+    {
+        $money = new Money(14670.11);
+        $money->subtract(new Money(670.09));
+
+        $this->assertEquals(14000.02, $money->getAmount());
+    }
+
+    public function testMultiply()
     {
         $money = new Money(84);
         $money->multiply(1.19);
@@ -82,7 +90,7 @@ class MoneyTest extends TestCase
         $this->assertEquals(99.96, $money->getAmount());
     }
 
-    public function testCurrencyDivide()
+    public function testDivide()
     {
         $money = new Money(84);
         $money->divide(1.19);
