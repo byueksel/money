@@ -2,6 +2,8 @@
 
 namespace Byueksel;
 
+use JsonSerializable;
+
 /**
  * A simple Money Class for PHP
  *
@@ -15,7 +17,7 @@ namespace Byueksel;
  * @license MIT
  * @version 1.0.0
  */
-class Money implements \JsonSerializable
+class Money implements JsonSerializable
 {
     /**
      * @var int
@@ -76,12 +78,7 @@ class Money implements \JsonSerializable
      */
     public function getAmount(int $decimals = 2): float
     {
-        $amount = $this->calculateAmount();
-        if($pos = strpos($amount, '.')) {
-            return substr($amount, 0, $pos + 1 + $decimals);
-        }
-
-        return $amount;
+        return (float) round($this->calculateAmount(), $decimals, PHP_ROUND_HALF_UP);
     }
 
     public function getFormatedAmount($decimals = 2, $decPoint = ',',

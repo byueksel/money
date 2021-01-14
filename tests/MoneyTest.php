@@ -1,5 +1,4 @@
 <?php
-
 namespace Byueksel\Tests;
 
 use Byueksel\Money;
@@ -19,6 +18,11 @@ use PHPUnit\Framework\TestCase;
  */
 class MoneyTest extends TestCase
 {
+    public function __construct(string $name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        ini_set('precision', 17);
+    }
 
     public function testCalculations()
     {
@@ -95,7 +99,23 @@ class MoneyTest extends TestCase
         $money = new Money(84);
         $money->divide(1.19);
 
-        $this->assertEquals(70.58, $money->getAmount());
+        $this->assertEquals(70.59, $money->getAmount());
+    }
+
+    public function testDivideTwoPointZero()
+    {
+        $money = new Money(84);
+        $money->divide(2.5);
+
+        $this->assertEquals(33.6, $money->getAmount());
+    }
+
+    public function testDivideTwoPointZero2()
+    {
+        $money = new Money(800);
+        $money->divide(2.50);
+
+        $this->assertEquals(320, $money->getAmount());
     }
 
 }
